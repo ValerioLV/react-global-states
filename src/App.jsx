@@ -1,18 +1,39 @@
 import { useReducer } from "react";
-import { GlReducerCounter } from "./global_states/reducer";
-import { GlContextCounter, initGlStateCounter } from "./global_states/context";
-import "./App.css";
+import { GlReducerCounter, GlReducerToDo } from "./global_states/reducer";
+import {
+	GlContextCounter,
+	GlContextToDo,
+	initGlStateCounter,
+	initGlToDo,
+} from "./global_states/context";
+import styles from "./App.module.scss";
 import Counter from "./components/counter";
 import TodoList from "./components/todo/todoList";
+import AddTodoModal from "./components/taskModal";
 
 function App() {
-	const [state, dispatch] = useReducer(GlReducerCounter, initGlStateCounter);
+	const [state, dispatch] = useReducer(GlReducerToDo, initGlToDo);
+
+	const onHandleClick = () => {
+		if (state.isModalVisibile === false) {
+			dispatch({ type: "SHOW_MODAL" });
+		} else {
+			dispatch({ type: "CLOSE_MODAL" });
+		}
+	};
+
 	return (
-		<div className="App">
-			<GlContextCounter.Provider value={{ state, dispatch }}>
-				<Counter />
-				{/* <TodoList /> */}
-			</GlContextCounter.Provider>
+		<div className={styles.App}>
+			<GlContextToDo.Provider value={{ state, dispatch }}>
+				{/* <Counter /> */}
+				<TodoList />
+				<button
+					className={styles.addTask}
+					onClick={onHandleClick}>
+					+
+				</button>
+				{state.isModalVisibile && <AddTodoModal />}
+			</GlContextToDo.Provider>
 		</div>
 	);
 }

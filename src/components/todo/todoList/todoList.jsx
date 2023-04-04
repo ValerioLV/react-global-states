@@ -1,35 +1,26 @@
-import { useContext, useState } from "react";
-import "./index.css";
+import { useContext, useEffect } from "react";
+import styles from "./index.module.scss";
 import TodoCard from "../todoCard";
 import { GlContextToDo } from "../../../global_states/context";
+import { GET } from "../../../utils/get";
 
 const TodoList = () => {
-	const [todo, setTodo] = useState("");
-	const [state, dispatch] = useContext(GlContextToDo);
+	const { state, dispatch } = useContext(GlContextToDo);
 
-	const onHandleInput = (e) => {
-		setTodo(() => e.target.value);
-	};
-	const onHandleSubmit = () => {
-		dispatch({ type: todo });
-	};
-	console.log(state);
+	useEffect(() => {
+		GET("todos").then((res) => {
+			dispatch({ type: "SET_TASKS_LIST", payload: res.todos });
+		});
+	}, []);
 
 	return (
-		<div className="TodoList">
-			{state.map((task) => (
-				<TodoCard task={task} />
-			))}
-			<form
-				action=""
-				onSubmit={onHandleSubmit}>
-				<input
-					type="text"
-					placeholder="ToDo"
-					value={todo}
-					onChange={onHandleInput}
+		<div className={styles.TodoList}>
+			{state.tasksListData.map((task) => (
+				<TodoCard
+					taskData={task}
+					key={task.id}
 				/>
-			</form>
+			))}
 		</div>
 	);
 };

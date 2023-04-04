@@ -1,9 +1,4 @@
 export const GlReducerCounter = (state, action) => {
-	// switch (action.type) {
-	// 	case "increase":
-	// 		console.log(state);
-
-	// }
 	if (action.type == "increase") {
 		console.log(state);
 		return {
@@ -24,5 +19,28 @@ export const GlReducerCounter = (state, action) => {
 };
 
 export const GlReducerToDo = (state, action) => {
-	return { ...state, todo: action.type };
+	switch (action.type) {
+		case "SET_TASKS_LIST":
+			return {
+				...state,
+				tasksListData: action.payload,
+			};
+		case "CREATE_NEW_TASK":
+			return {
+				...state,
+				tasksListData: [...state.tasksListData, action.payload],
+			};
+
+		case "SHOW_MODAL":
+			return {
+				...state,
+				isModalVisibile: true,
+			};
+
+		case "CLOSE_MODAL":
+			return {
+				...state,
+				isModalVisibile: false,
+			};
+	}
 };

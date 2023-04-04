@@ -7,9 +7,8 @@ export const initGlStateCounter = {
 export const GlContextCounter = createContext({});
 
 export const initGlToDo = {
-	todo: "aa",
-	todo: "reee",
-	todo: "sus",
+	tasksListData: [],
+	isModalVisibile: false,
 };
 
 export const GlContextToDo = createContext({});

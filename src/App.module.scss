@@ -1,0 +1,16 @@
+.App {
+	display: flex;
+	flex-direction: column;
+	gap: 40px;
+
+	.addTask {
+		position: fixed;
+		bottom: 30px;
+		left: calc(50vw - 50px + 6px);
+		width: 70px;
+		height: 70px;
+		border-radius: 100%;
+		border: 0;
+		font-size: 2rem;
+	}
+}
