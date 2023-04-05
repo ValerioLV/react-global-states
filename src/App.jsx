@@ -7,6 +7,7 @@ import {
 	initGlToDo,
 } from "./global_states/context";
 import styles from "./App.module.scss";
+import Hero from "./components/hero";
 import Counter from "./components/counter";
 import TodoList from "./components/todo/todoList";
 import AddTodoModal from "./components/taskModal";
@@ -26,6 +27,7 @@ function App() {
 		<div className={styles.App}>
 			<GlContextToDo.Provider value={{ state, dispatch }}>
 				{/* <Counter /> */}
+				<Hero />
 				<TodoList />
 				<button
 					className={styles.addTask}

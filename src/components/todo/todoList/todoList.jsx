@@ -1,17 +1,10 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import styles from "./index.module.scss";
 import TodoCard from "../todoCard";
 import { GlContextToDo } from "../../../global_states/context";
-import { GET } from "../../../utils/get";
 
 const TodoList = () => {
 	const { state, dispatch } = useContext(GlContextToDo);
-
-	useEffect(() => {
-		GET("todos").then((res) => {
-			dispatch({ type: "SET_TASKS_LIST", payload: res.todos });
-		});
-	}, []);
 
 	return (
 		<div className={styles.TodoList}>

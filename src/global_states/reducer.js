@@ -25,10 +25,26 @@ export const GlReducerToDo = (state, action) => {
 				...state,
 				tasksListData: action.payload,
 			};
+		case "SET_TASK_ID":
+			return {
+				...state,
+				protoTask: {
+					...state.protoTask,
+					id: state.tasksListData.lenght + 1,
+				},
+			};
 		case "CREATE_NEW_TASK":
 			return {
 				...state,
 				tasksListData: [...state.tasksListData, action.payload],
+			};
+
+		case "DELETE_TASK":
+			return {
+				...state,
+				tasksListData: state.tasksListData.filter(
+					(task) => task.id !== action.payload,
+				),
 			};
 
 		case "SHOW_MODAL":

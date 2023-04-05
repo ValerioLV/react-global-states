@@ -7,8 +7,30 @@ export const initGlStateCounter = {
 export const GlContextCounter = createContext({});
 
 export const initGlToDo = {
-	tasksListData: [],
+	tasksListData: [
+		{
+			id: 1,
+			todo: "Nutrirmi",
+			completed: true,
+			image: "https://picsum.photos/200/",
+			username: "Caio",
+		},
+		{
+			id: 2,
+			todo: "Riposare",
+			completed: false,
+			image: "https://picsum.photos/200/",
+			username: "Tizio",
+		},
+	],
 	isModalVisibile: false,
+	protoTask: {
+		username: "",
+		image: "https://picsum.photos/200/",
+		completed: false,
+		todo: "",
+		id: null,
+	},
 };
 
 export const GlContextToDo = createContext({});

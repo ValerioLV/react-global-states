@@ -4,21 +4,23 @@ import { GlContextToDo } from "../../global_states/context";
 
 const AddTodoModal = () => {
 	const { state, dispatch } = useContext(GlContextToDo);
-	const [textInput, setTextInput] = useState("");
-	const [isDone, setIsDone] = useState(false);
 
-	const onHandleChange = (e) => setTextInput(() => e.target.value);
-	const onHandleDone = (e) => setIsDone(() => e.target.value);
+	const onHandleUserChange = (e) => {
+		state.protoTask.username = e.target.value;
+	};
+	const onHandleTaskChange = (e) => {
+		state.protoTask.todo = e.target.value;
+	};
+
+	const onHandleDone = (e) => {
+		state.protoTask.completed = e.target.value;
+	};
 	const onHandleSubmit = (e) => {
 		e.preventDefault();
+		dispatch({ type: "SET_TASK_ID" });
 		dispatch({
 			type: "CREATE_NEW_TASK",
-			payload: {
-				id: 31,
-				todo: textInput,
-				completed: isDone,
-				userId: 26,
-			},
+			payload: state.protoTask,
 		});
 		dispatch({ type: "CLOSE_MODAL" });
 	};
@@ -29,13 +31,19 @@ const AddTodoModal = () => {
 			<div className={styles.content}>
 				<h3>Aggiungi una nuova task</h3>
 				<form onSubmit={onHandleSubmit}>
+					<label htmlFor="username">Inserisci lo username </label>
+					<input
+						type="text"
+						name="username"
+						className={styles.Input}
+						onChange={onHandleUserChange}
+					/>
 					<label htmlFor="todo">Aggiungi una task</label>
 					<input
 						type="text"
 						name="todo"
 						className={styles.Input}
-						value={textInput}
-						onChange={onHandleChange}
+						onChange={onHandleTaskChange}
 					/>
 					<input
 						type="checkbox"
